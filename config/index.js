@@ -4,6 +4,16 @@
 
 const path = require('path')
 
+//获取本机ip
+const os = require('os')
+let localhost = ''
+try {
+  const network = os.networkInterfaces()
+  localhost = network[Object.keys(network)[0]][1].address
+} catch (e) {
+  localhost = 'localhost';
+}
+
 module.exports = {
   dev: {
 
@@ -13,9 +23,9 @@ module.exports = {
     proxyTable: {},
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    host: localhost, // can be overwritten by process.env.HOST
+    port: 8088, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    autoOpenBrowser: true, //启动后自动打开浏览器
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-

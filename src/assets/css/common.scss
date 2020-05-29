@@ -1,0 +1,109 @@
+// 通用样式
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  ul, li {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    color: unset;
+    &:hover, &:active, &:visited {
+      color: unset;
+    }
+  }
+}
+
+::selection {
+  background: #fff;
+  color: #409eff;
+}
+
+::-webkit-scrollbar{
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: 3px;
+  background-color: #e8e8e8;
+  &:hover {
+    background-color: #999;
+  }
+}
+
+::-webkit-scrollbar-track{
+  border-radius: 3px;
+  background-color: #f4f4f4;
+}
+
+// flex布局
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &.flex-column{
+    flex-direction: column;
+  }
+  &.align-start{
+    align-items: flex-start;
+  }
+  &.align-end{
+    align-items: flex-end;
+  }
+  &.justify-start{
+    justify-content: flex-start;
+  }
+  &.justify-end{
+    justify-content: flex-end;
+  }
+  &.justify-between{
+    justify-content: space-between;
+  }
+  &.justify-around{
+    justify-content: space-around;
+  }
+}
+
+// 颜色系列
+.color-default {
+  color: #ffffff;
+}
+
+.color-primary {
+  color: #409eff;
+}
+
+.color-danger {
+  color: #f56c6c;
+}
+
+.color-success {
+  color: #67c23a;
+}
+
+.color-waring {
+  color: #e6a23c;
+}
+
+.color-info {
+  color: #909399;
+}
+
+// 其他
+.highlight {
+  cursor: pointer;
+  &:hover {
+    color: #409eff;
+  }
+}
