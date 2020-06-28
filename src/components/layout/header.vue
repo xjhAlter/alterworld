@@ -38,42 +38,12 @@
 </template>
 
 <script>
+import menu from './menu'
 export default {
-  name: 'header',
+  name: 'myHeader',
   data () {
     return {
-      mainMenu: [
-        {
-          name: '首页',
-          alias: 'home'
-        },
-        {
-          name: '学习',
-          alias: 'study',
-          children: [
-            {name: '学习1', alias: 'study1', children: []},
-            {name: '学习2', alias: 'study2', children: []},
-            {name: '学习3', alias: 'study3', children: []},
-            {name: '学习4', alias: 'study4', children: []}
-          ]
-        },
-        {
-          name: '工具',
-          alias: 'tool',
-          children: [
-            {name: '工具1', alias: 'tool1', children: []},
-            {name: '工具2', alias: 'tool2', children: []}
-          ],
-          needAdmin: true
-        },
-        {
-          name: '我的',
-          alias: 'user',
-          children: [
-            {name: '个人中心', alias: 'userInfo', children: []}
-          ]
-        }
-      ],
+      mainMenu: menu,
       noticeMsg: ''
     }
   },
