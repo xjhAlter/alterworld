@@ -1,7 +1,7 @@
 <template>
   <div id="fkw">
     <div class="swiper-container">
-      <div class="swiper-wrapper" :style="swiperStyle">
+      <div class="swiper-wrapper" id="swiper" :style="swiperStyle">
         <div class="swiper-item" id="swi-1">
           <div class="page-header flex">
             <div class="header-inner">
@@ -199,12 +199,65 @@ export default {
     return {
       clientHeight: 0, // 网页可见高度
       currentPage: 1, // 当前页
-      scrollTimer: null
+      scrollTimer: null,
+      startx: 0,
+      starty: 0
     }
   },
   mounted () {
     window.addEventListener('mousewheel', this.onScroll, false)
     this.clientHeight = document.body.clientHeight
+
+    // 适配移动端的滑动 (参考链接：https://blog.csdn.net/qq_39198420/article/details/76502267)
+    let swiper = document.getElementById('swiper')
+
+    // 获得角度
+    function getAngle (angx, angy) {
+      return Math.atan2(angy, angx) * 180 / Math.PI
+    }
+
+    // 根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
+    function getDirection (startx, starty, endx, endy) {
+      let angx = endx - startx
+      let angy = endy - starty
+      let result = 0
+      // 如果滑动距离太短
+      if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+        return result
+      }
+      let angle = getAngle(angx, angy)
+      if (angle >= -135 && angle <= -45) {
+        result = 1
+      } else if (angle > 45 && angle < 135) {
+        result = 2
+      } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+        result = 3
+      } else if (angle >= -45 && angle <= 45) {
+        result = 4
+      }
+      return result
+    }
+
+    // 手指接触屏幕
+    swiper.addEventListener('touchstart', (e) => {
+      this.startx = e.touches[0].pageX
+      this.starty = e.touches[0].pageY
+    }, false)
+
+    // 手指离开屏幕
+    swiper.addEventListener('touchend', (e) => {
+      let endx, endy
+      endx = e.changedTouches[0].pageX
+      endy = e.changedTouches[0].pageY
+      let direction = getDirection(this.startx, this.starty, endx, endy)
+      let index = this.currentPage
+      if (direction === 1) {
+        index = index < 7 ? index + 1 : 7
+      } else if (direction === 2) {
+        index = index > 1 ? index - 1 : 1
+      }
+      this.changePage(index)
+    }, false)
   },
   methods: {
     /**
@@ -572,6 +625,7 @@ export default {
               .main-text{
                 font-size: 46px;
                 margin-top: 130px;
+                animation: slideTop ease 1s forwards;
               }
               .steps-wrapper{
                 margin-top: 140px;
