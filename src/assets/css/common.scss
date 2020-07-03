@@ -134,3 +134,116 @@ body {
     padding-right: #{$i}px !important;;
   }
 }
+
+/* 按钮 */
+.aw-btn {
+  border: 1px solid #d8d8d8;
+  min-width: 88px;
+  padding: 0 14px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  background-color: #fff;
+  vertical-align: middle;
+
+  &:not(:disabled):hover {
+    color: #409eff;
+    border-color: #409eff;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #eeeeee;
+    cursor: not-allowed;
+  }
+
+  &.btn-success {
+    border: 0;
+    background-color: #64c037;
+    color: white;
+    &:not(:disabled):hover {
+      color: white;
+      background-color: #89d166;
+    }
+    &:disabled {
+      background-color: #b3e19d;
+    }
+  }
+
+  &.btn-danger {
+    border: 0;
+    background-color: #f65b5c;
+    color: white;
+    &:not(:disabled):hover {
+      color: white;
+      background-color: #fc7878;
+    }
+  }
+
+  &.btn-primary {
+    border: 0;
+    background-color: #409eff;
+    color: white;
+    &:not(:disabled):hover {
+      color: white;
+      background-color: #66b1ff;
+    }
+    &:disabled {
+      background-color: #a0cfff;
+    }
+  }
+
+  &.btn-warning {
+    border: 0;
+    background-color: #ff8c18;
+    color: white;
+    &:not(:disabled):hover {
+      color: white;
+    }
+  }
+
+  &.btn-primary-reverse {
+    color: #409eff;
+    border-color: #409eff;
+    &:not(:disabled):hover {
+      color: white;
+      border-color: #409eff;
+      background-color: #409eff;
+    }
+    &:disabled {
+      color: #a0cfff;
+      border-color: #a0cfff;
+      background-color: white;
+    }
+  }
+
+  &.btn-waiting {
+    border: 0;
+    background-color: #ccc;
+    color: white;
+    &:not(:disabled):hover {
+      color: white;
+      background-color: #dcdcdc;
+    }
+  }
+
+  &.btn-small {
+    min-width: 66px;
+    height: 26px;
+    font-size: 12px;
+    border-radius: 2px;
+  }
+
+  &.btn-large {
+    min-width: 168px;
+    height: 42px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+}
