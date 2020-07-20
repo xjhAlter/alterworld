@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1 class="highlight">首页</h1>
-    <button class="mt-30" @click="toCosmos('fkw')">cosmos fkw</button>
+    <button class="mt-30 aw-btn" @click="toCosmos('fkw')">cosmos fkw</button>
   </div>
 </template>
 

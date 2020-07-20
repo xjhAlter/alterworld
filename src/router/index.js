@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@modules/home/router'
 import compDoc from '@modules/comp-doc/router'
 import cosmos from '@modules/cosmos/router'
+import user from '@modules/user/router'
 
 Vue.use(Router)
 
@@ -11,6 +12,7 @@ export default new Router({
   routes: [
     ...home,
     ...compDoc,
-    ...cosmos
+    ...cosmos,
+    ...user
   ]
 })

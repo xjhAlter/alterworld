@@ -16,14 +16,15 @@ const menu = [
     children: [
       {name: '工具1', alias: 'tool1'},
       {name: '工具2', alias: 'tool2'}
-    ]
-    // needAdmin: true
+    ],
+    needAdmin: true
   },
   {
     name: '我的',
     alias: 'user',
     children: [
-      {name: '个人中心', alias: 'userInfo'}
+      {name: '个人中心', alias: 'userInfo'},
+      {name: '开发区', alias: 'dev'}
     ]
   }
 ]
