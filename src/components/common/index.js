@@ -1,7 +1,8 @@
 import radio from './radio'
 import checkbox from './checkbox'
+import tabs from './tabs'
 
-const components = [radio, checkbox]
+const components = [radio, checkbox, tabs]
 
 const install = function (Vue) {
   if (install.installed) return
@@ -17,5 +18,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   install,
   radio,
-  checkbox
+  checkbox,
+  tabs
 }

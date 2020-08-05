@@ -35,6 +35,10 @@ export default {
           cnName: '复选框'
         },
         {
+          name: 'tabs',
+          cnName: '选项卡'
+        },
+        {
           name: 'select',
           cnName: '下拉选择框'
         }

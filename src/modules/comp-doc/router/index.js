@@ -1,6 +1,7 @@
 const index = () => import('../pages/index')
 const radio = () => import('../pages/radio')
 const checkbox = () => import('../pages/checkbox')
+const tabs = () => import('../pages/tabs')
 
 export default [
   {
@@ -19,6 +20,10 @@ export default [
       {
         path: 'checkbox',
         component: checkbox
+      },
+      {
+        path: 'tabs',
+        component: tabs
       }
     ]
   }
