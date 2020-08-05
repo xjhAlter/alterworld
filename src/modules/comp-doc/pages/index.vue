@@ -1,10 +1,7 @@
 <template>
   <div class="doc-index">
     <div class="comp-list">
-      <div v-for="(item,index) in compList" :key="index" class="comp-item" :class="{'active': currentDoc === item.name}" @click="changeDoc(item.name)">
-        <span>{{item.cnName}}</span>
-        <span class="ml-5 small-text">{{item.name}}</span>
-      </div>
+      <aw-tabs v-model="currentDoc" :tabs="compList" :width="'180px'" :vertical="true" @change="changeDoc"/>
     </div>
     <div class="comp-content">
       <keep-alive v-if="$route.meta.keepAlive!==false">
@@ -27,21 +24,25 @@ export default {
       currentDoc: '',
       compList: [
         {
-          name: 'radio',
-          cnName: '单选框'
+          value: 'radio',
+          alias: 'radio',
+          name: '单选框'
         },
         {
-          name: 'checkbox',
-          cnName: '复选框'
+          value: 'checkbox',
+          alias: 'checkbox',
+          name: '复选框'
         },
         {
-          name: 'tabs',
-          cnName: '选项卡'
-        },
-        {
-          name: 'select',
-          cnName: '下拉选择框'
+          value: 'tabs',
+          alias: 'tabs',
+          name: '选项卡'
         }
+        // {
+        //   value: 'select',
+        //   alias: 'select',
+        //   name: '下拉选择框'
+        // }
       ]
     }
   },
@@ -51,13 +52,13 @@ export default {
   methods: {
     /**
      * 切换文档
-     * @param name
+     * @param value
      */
-    changeDoc (name) {
+    changeDoc (value) {
       let currentDoc = this.$router.currentRoute.path.split('/')[2]
-      if (currentDoc !== name) {
-        this.$set(this, 'currentDoc', name)
-        this.$router.push({path: `/comp-doc/${name}`})
+      if (currentDoc !== value) {
+        this.$set(this, 'currentDoc', value)
+        this.$router.push({path: `/comp-doc/${value}`})
       }
     }
   },
@@ -77,33 +78,7 @@ export default {
     display: flex;
     justify-content: space-between;
     .comp-list{
-      width: 180px;
-      border-left: 5px solid #409eff;
-      .comp-item{
-        width: 180px;
-        height: 50px;
-        padding: 10px 10px;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 30px;
-        text-align: left;
-        border-bottom: 1px solid #d8d8d8;
-        cursor: pointer;
-        &:first-child{
-          border-top: 1px solid #d8d8d8;
-        }
-        &:hover,&.active{
-          color: #fff;
-          background-color: #409eff;
-          border-color: #409eff;
-        }
-        &.active{
-          opacity: .8;
-        }
-        .small-text{
-          font-size: 12px;
-        }
-      }
+
     }
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="aw-tabs" :class="{'v-tabs':vertical}">
-    <div v-for="tab in tabs" :key="tab.value" class="tab" :class="{'current-tab':current === tab.value}" @click="onSelect(tab)">
+    <div v-for="tab in tabs" :key="tab.value" class="tab" :class="{'current-tab':current === tab.value}" :style="tabStyle" @click="onSelect(tab)">
       <span class="tab-name">{{tab.name}}</span>
       <span v-if="tab.alias" class="tab-alias">{{tab.alias}}</span>
     </div>
@@ -25,6 +25,14 @@ export default {
         return []
       },
       require: true
+    },
+    width: {
+      type: String,
+      default: '120px'
+    },
+    height: {
+      type: String,
+      default: '50px'
     },
     vertical: {
       type: Boolean,
@@ -51,6 +59,12 @@ export default {
         }
         this.$emit('change', val)
       }
+    },
+    tabStyle () {
+      return {
+        width: this.width,
+        height: this.height
+      }
     }
   }
 }
@@ -68,8 +82,6 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-width: 120px;
-      height: 50px;
       color: #333;
       .tab-name{
         font-size: 14px;
@@ -80,6 +92,11 @@ export default {
       }
       &:hover{
         color: #409eff;
+      }
+      &.current-tab{
+        .tab-name{
+          color: #409eff;
+        }
       }
     }
     &:not(.v-tabs){
@@ -105,6 +122,8 @@ export default {
       flex-direction: column;
       .tab{
         flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 20px;
         border: 1px solid #d8d8d8;
         border-bottom: 0;
         border-left: 2px solid #409eff;
@@ -114,11 +133,6 @@ export default {
         &:last-child{
           border-bottom: 1px solid #d8d8d8;
           border-bottom-right-radius: 10px;
-        }
-        &.current-tab{
-          .tab-name{
-            color: #409eff;
-          }
         }
         .tab-name{
           font-size: 16px;

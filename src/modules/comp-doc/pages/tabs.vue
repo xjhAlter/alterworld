@@ -44,6 +44,20 @@ export default {
             defaultValues: '',
             required: true
           },
+          width: {
+            name: 'width',
+            description: '选项卡宽度',
+            type: 'String',
+            optionalValues: '',
+            defaultValues: '120px'
+          },
+          height: {
+            name: 'height',
+            description: '选项卡高度',
+            type: 'String',
+            optionalValues: '',
+            defaultValues: '50px'
+          },
           vertical: {
             name: 'vertical',
             description: '垂直显示',
