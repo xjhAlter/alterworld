@@ -1,30 +1,32 @@
 <template>
   <div class="dev">
-    <div class="dev-row" id="workbench">
-      <drop-box :box="box" :parent-box="'#workbench'"></drop-box>
+    <div class="dev-row flex" style="background-color: #ebebeb;">
+      <progress-circle :values="progressData.values" :radius="100" :width="30" :bgColor="'#fff'"/>
     </div>
     <div class="dev-row">
       <div class="clip-box"></div>
     </div>
-    <div class="dev-row flex justify-around">
+    <div class="dev-row flex justify-around" v-if="false">
       <div class="clip-path-box inset"></div>
       <div class="clip-path-box circle"></div>
       <div class="clip-path-box ellipse"></div>
       <div class="clip-path-box polygon"></div>
       <div class="anim-box"></div>
     </div>
-    <div class="dev-row">
-
+    <div class="dev-row" id="workbench" v-if="false">
+      <drop-box :box="box" :parent-box="'#workbench'"></drop-box>
     </div>
   </div>
 </template>
 
 <script>
 import dropBox from '@components/dropBox'
+import progressCircle from '@components/progress-circle'
 export default {
   name: 'dev',
   components: {
-    dropBox
+    dropBox,
+    progressCircle
   },
   data () {
     return {
@@ -37,8 +39,21 @@ export default {
           opacity: 1,
           rotate: 0
         }
+      },
+      progressData: {
+        values: [
+          { title: '第一阶段', value: 25, color: '#409eff' },
+          { title: '第二阶段', value: 25 },
+          { title: '第三阶段', value: 25 },
+          { title: '第四阶段', value: 25 }
+        ]
       }
     }
+  },
+  created () {
+    // setTimeout(() => {
+    //   this.$set(this.progressData.values[1], 'value', 100)
+    // }, 3000)
   },
   methods: {
 
