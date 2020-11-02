@@ -6,6 +6,7 @@ import router from './router'
 import awui from './components/common'
 import '@assets/css/common.scss'
 import '@assets/js/common.js'
+import '@assets/js/my-lodash.js'
 
 import ElementUi from 'element-ui'
 
