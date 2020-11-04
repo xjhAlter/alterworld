@@ -7,6 +7,7 @@ import awui from './components/common'
 import '@assets/css/common.scss'
 import '@assets/js/common.js'
 import '@assets/js/my-lodash.js'
+import '@assets/js/my-heart.js'
 
 import ElementUi from 'element-ui'
 
