@@ -1,5 +1,6 @@
 // 鼠标抬起事件
 document.body.onmouseup = function (e) {
+  if (e.button !== 0) return // 只有鼠标左键点击触发
   // 获取坐标
   let x = e.pageX - 10
   let y = e.pageY - 10
