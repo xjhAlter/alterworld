@@ -11,9 +11,10 @@
       <my-footer/>
     </template>
     <template v-else>
-      <keep-alive>
+      <keep-alive v-if="$route.meta.keepAlive!==false">
         <router-view/>
       </keep-alive>
+      <router-view v-else/>
     </template>
   </div>
 </template>
