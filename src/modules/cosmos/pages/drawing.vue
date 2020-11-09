@@ -74,65 +74,38 @@ export default {
     },
     mousemove (e) {
       if (this.moving) {
-        // 铅笔
-        // this.ctx.lineTo(e.offsetX, e.offsetY)
-        // this.ctx.stroke()
-
-        // 直线
-        // this.ctx.putImageData(this.cacheImage, 0, 0)
-        // this.ctx.beginPath()
-        // this.ctx.moveTo(this.drawData.startX, this.drawData.startY)
-        // this.ctx.lineTo(e.offsetX, e.offsetY)
-        // this.ctx.stroke()
-
-        // 矩形
-        // this.ctx.putImageData(this.cacheImage, 0, 0)
-        // this.ctx.strokeRect(this.drawData.startX, this.drawData.startY, e.offsetX - this.drawData.startX, e.offsetY - this.drawData.startY)
-
-        // 圆
-        // this.ctx.putImageData(this.cacheImage, 0, 0)
-        // this.ctx.beginPath()
-        // let rx = (e.offsetX - this.drawData.startX) / 2
-        // let ry = (e.offsetY - this.drawData.startY) / 2
-        // let r = Math.sqrt(rx * rx + ry * ry)
-        // this.ctx.arc(rx + this.drawData.startX, ry + this.drawData.startY, r, 0, Math.PI * 2) // 第6个参数默认是false-顺时针
-        // this.ctx.stroke()
-
         this.drawData.endX = e.offsetX
         this.drawData.endY = e.offsetY
         this.draw(this.drawData)
       }
     },
     mouseup () {
-      this.moving = false
+      if (this.moving) {
+        this.moving = false
+        // 将此次操作存入history数组
+        this.history.push(JSON.parse(JSON.stringify(this.drawData)))
+      }
       document.body.removeEventListener('mouseup', this.mouseup)
-      // 将此次操作存入history数组
-      this.history.push(JSON.parse(JSON.stringify(this.drawData)))
     },
     draw (drawData, isRedraw) {
       let {type, startX, startY, endX, endY, fill, fillStyle, strokeStyle} = drawData
+      if (!isRedraw && type !== 'pencil') {
+        this.ctx.putImageData(this.cacheImage, 0, 0)
+      }
       if (type === 'pencil') {
-        // 有bug
-        if (isRedraw) {
-          this.ctx.moveTo(startX, startY)
-        }
         this.ctx.lineTo(endX, endY)
         this.ctx.stroke()
         if (!isRedraw) {
           this.history.push(JSON.parse(JSON.stringify(drawData)))
         }
       } else if (type === 'line') {
-        if (!isRedraw) {
-          this.ctx.putImageData(this.cacheImage, 0, 0)
-        }
         this.ctx.beginPath()
         this.ctx.moveTo(startX, startY)
         this.ctx.lineTo(endX, endY)
         this.ctx.stroke()
+      } else if (type === 'rectangle') {
+        this.ctx.strokeRect(startX, startY, endX - startX, endY - startY)
       } else if (type === 'circle') {
-        if (!isRedraw) {
-          this.ctx.putImageData(this.cacheImage, 0, 0)
-        }
         this.ctx.beginPath()
         let rx = (endX - startX) / 2
         let ry = (endY - startY) / 2
@@ -146,14 +119,36 @@ export default {
       this.ctx.fillStyle = '#fff'
       this.ctx.fillRect(0, 0, this.canvasSize.width, this.canvasSize.height)
     },
+    redraw () {
+      this.clear()
+      if (this.history.length) {
+        let popDraw = this.history.pop()
+        if (popDraw.type === 'pencil') {
+          let lastDraw = this.history[this.history.length - 1]
+          while (this.history.length && lastDraw.type === 'pencil' && lastDraw.startX === popDraw.startX && lastDraw.startY === popDraw.startY) {
+            this.history.pop()
+            lastDraw = this.history[this.history.length - 1]
+          }
+        }
+      }
+      if (this.history.length) {
+        let startX = -100
+        let startY = -100
+        this.history.forEach(data => {
+          if (data.type === 'pencil' && data.startX !== startX && data.startY !== startY) {
+            this.ctx.beginPath()
+            this.ctx.moveTo(data.startX, data.startY)
+          }
+          startX = data.startX
+          startY = data.startY
+          this.draw(data, true)
+        })
+      }
+    },
     keydown (e) {
       // 监听Ctrl + z
       if (e.ctrlKey && e.keyCode === 90) {
-        this.clear()
-        this.history.pop()
-        this.history.forEach(data => {
-          this.draw(data, true)
-        })
+        this.redraw()
       }
     }
   }
