@@ -108,6 +108,10 @@ body {
   }
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @for $i from 0 through 100 {
   .mt-#{$i} {
     margin-top: #{$i}px !important;
