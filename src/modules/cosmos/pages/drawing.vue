@@ -36,6 +36,19 @@
           </div>
         </div>
       </div>
+      <div class="tool-row">
+        <div class="tool-title">画板</div>
+        <div class="tool-content color-content">
+          <div class="color-row">
+            <label>宽度</label>
+            <el-input v-model="canvasSize.width" placeholder="宽度"></el-input>
+          </div>
+          <div class="color-row">
+            <label>高度</label>
+            <el-input v-model="canvasSize.height" placeholder="高度"></el-input>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="workbench" :class="isPc ? '' : 'mobile-workbench'">
       <div class="canvas-wrapper" :style="{width: canvasSize.width + 'px',height: canvasSize.height + 'px'}">
@@ -404,6 +417,7 @@ export default {
                 font-size: 14px;
                 color: #333;
                 margin-right: 10px;
+                flex: 0 0 auto;
               }
             }
           }
