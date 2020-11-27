@@ -9,7 +9,7 @@ import '@assets/css/iconfont.scss'
 import '@assets/js/common.js'
 import '@assets/js/my-lodash.js'
 import '@assets/js/my-heart.js'
-
+import 'element-ui/lib/theme-chalk/index.css'
 import ElementUi from 'element-ui'
 
 Vue.config.productionTip = false
