@@ -5,6 +5,7 @@
         <div class="iconfont menu cursor-pointer left-tool-icon" :style="{color: leftToolShow ? '#409eff' : ''}" v-if="!isPc" @click="showLeftTool"></div>
       </div>
       <div>
+        <button class="aw-btn" @click="save">保存到本地</button>
         <button class="aw-btn" @click="redraw">撤销</button>
         <button class="aw-btn" @click="clear(true)">清空</button>
       </div>
@@ -212,6 +213,26 @@ export default {
       // 监听Ctrl + z
       if (e.ctrlKey && e.keyCode === 90) {
         this.redraw()
+      }
+    },
+    save () {
+      let link = document.createElement('a')
+      let imgData = this.canvas.toDataURL({format: 'png', quality: 1, width: this.canvasSize.width, height: this.canvasSize.height})
+      let blob = dataURLtoBlob(imgData)
+      link.download = `draw_${new Date().format()}.png`
+      link.href = URL.createObjectURL(blob)
+      link.click()
+
+      function dataURLtoBlob (dataUrl) {
+        let arr = dataUrl.split(',')
+        let mime = arr[0].match(/:(.*?);/)[1]
+        let bStr = atob(arr[1])
+        let n = bStr.length
+        let u8arr = new Uint8Array(n)
+        while (n--) {
+          u8arr[n] = bStr.charCodeAt(n)
+        }
+        return new Blob([u8arr], {type: mime})
       }
     },
 
