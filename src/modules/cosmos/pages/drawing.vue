@@ -11,12 +11,28 @@
     </div>
     <div class="left-tool" :class="{'mobile-left-tool' : !isPc && !leftToolShow, 'mlt-show' : !!leftToolShow}">
       <div class="tool-row">
-        <div class="tool-title">形状</div>
+        <div class="tool-title">图形</div>
         <div class="tool-content type-content">
           <div class="type-box" :class="{'active': drawData.type === 'pencil'}" @click="changeType('pencil')"><span class="iconfont pencil"></span></div>
           <div class="type-box" :class="{'active': drawData.type === 'line'}" @click="changeType('line')"><span class="iconfont line"></span></div>
           <div class="type-box" :class="{'active': drawData.type === 'rectangle'}" @click="changeType('rectangle')"><span class="iconfont rectangle"></span></div>
           <div class="type-box" :class="{'active': drawData.type === 'circle'}" @click="changeType('circle')"><span class="iconfont circle"></span></div>
+        </div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-title">颜色</div>
+        <div class="tool-content color-content">
+          <div class="color-row">
+            <label>轮廓</label>
+            <el-color-picker v-model="drawData.strokeStyle" size="medium" show-alpha></el-color-picker>
+          </div>
+          <div class="color-row">
+            <label>填充</label>
+            <el-color-picker v-model="drawData.fillStyle" size="medium" show-alpha></el-color-picker>
+          </div>
+          <div class="color-row">
+            <el-checkbox v-model="drawData.fill">填充图形</el-checkbox>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +136,10 @@ export default {
     },
     draw (drawData, isRedraw) {
       let {type, startX, startY, endX, endY, fill, fillStyle, strokeStyle} = drawData
+      this.ctx.strokeStyle = strokeStyle
+      if (fill) {
+        this.ctx.fillStyle = fillStyle
+      }
       if (!isRedraw && type !== 'pencil') {
         this.ctx.putImageData(this.cacheImage, 0, 0)
       }
@@ -136,12 +156,18 @@ export default {
         this.ctx.stroke()
       } else if (type === 'rectangle') {
         this.ctx.strokeRect(startX, startY, endX - startX, endY - startY)
+        if (fill) {
+          this.ctx.fillRect(startX, startY, endX - startX, endY - startY)
+        }
       } else if (type === 'circle') {
         this.ctx.beginPath()
         let rx = (endX - startX) / 2
         let ry = (endY - startY) / 2
         let r = Math.sqrt(rx * rx + ry * ry)
         this.ctx.arc(rx + startX, ry + startY, r, 0, Math.PI * 2) // 第6个参数默认是false-顺时针
+        if (fill) {
+          this.ctx.fill()
+        }
         this.ctx.stroke()
       }
     },
@@ -240,7 +266,7 @@ export default {
         if (eventPath) {
           let closeFlag = true
           for (let el of eventPath) {
-            if (el.className && el.className.indexOf('left-tool') > -1) {
+            if (el.className && (el.className.indexOf('left-tool') > -1 || el.className.indexOf('el-color') > -1)) {
               closeFlag = false
               break
             }
@@ -342,6 +368,21 @@ export default {
                 span {
                   color: #409eff;
                 }
+              }
+            }
+          }
+          &.color-content {
+            display: flex;
+            flex-direction: column;
+            .color-row {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              margin-bottom: 10px;
+              label {
+                font-size: 14px;
+                color: #333;
+                margin-right: 10px;
               }
             }
           }
