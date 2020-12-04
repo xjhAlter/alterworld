@@ -22,6 +22,21 @@ body {
       color: unset;
     }
   }
+
+  div,textarea,input,table,td,tr,tbody,ul,li,button:focus{
+    outline: unset;
+  }
+  textarea{
+    font-family:Microsoft YaHei,微软雅黑,Helvetica Neue,Helvetica,Hiragino Sans GB,STHeitiSC-Light,Arial,sans-serif;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    padding: 14px;
+    resize: none;
+    &:focus{
+      outline: none;
+      border: 1px solid #409eff;
+    }
+  }
 }
 
 ::selection {
@@ -98,6 +113,18 @@ body {
 
 .color-info {
   color: #909399;
+}
+
+.color-main {
+  color: #333;
+}
+
+.color-minor {
+  color: #666;
+}
+
+.color-sub {
+  color: #999;
 }
 
 // 其他

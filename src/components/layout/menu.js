@@ -14,10 +14,8 @@ const menu = [
     name: '工具',
     alias: 'tool',
     children: [
-      {name: '工具1', alias: 'tool1'},
-      {name: '工具2', alias: 'tool2'}
-    ],
-    needAdmin: true
+      {name: '正则表达式', alias: 'regex'}
+    ]
   },
   {
     name: '我的',
