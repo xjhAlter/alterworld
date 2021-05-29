@@ -1,51 +1,54 @@
 <template>
   <div id="app">
     <template v-if="isAw">
-      <my-header/>
+      <my-header />
       <div class="my-page">
-        <keep-alive v-if="$route.meta.keepAlive!==false">
-          <router-view/>
+        <keep-alive v-if="$route.meta.keepAlive !== false">
+          <router-view />
         </keep-alive>
-        <router-view v-else/>
+        <router-view v-else />
       </div>
-      <my-footer/>
+      <my-footer />
     </template>
     <template v-else>
-      <keep-alive v-if="$route.meta.keepAlive!==false">
-        <router-view/>
+      <keep-alive v-if="$route.meta.keepAlive !== false">
+        <router-view />
       </keep-alive>
-      <router-view v-else/>
+      <router-view v-else />
     </template>
   </div>
 </template>
 
 <script>
-import myHeader from '@components/layout/header'
-import myFooter from '@components/layout/footer'
+import myHeader from "@components/layout/header";
+import myFooter from "@components/layout/footer";
 export default {
-  name: 'App',
-  components: {myHeader, myFooter},
-  data () {
+  name: "App",
+  components: { myHeader, myFooter },
+  data() {
     return {
-      isAw: true
-    }
+      isAw: true,
+    };
+  },
+  mounted() {
+    console.log("test");
   },
   watch: {
-    '$route': function (to) {
-      let paths = to.path.split('/')
-      if (paths[1] && paths[1] === 'cosmos') {
-        this.$set(this, 'isAw', false)
+    $route: function (to) {
+      let paths = to.path.split("/");
+      if (paths[1] && paths[1] === "cosmos") {
+        this.$set(this, "isAw", false);
       } else {
-        this.$set(this, 'isAw', true)
+        this.$set(this, "isAw", true);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
