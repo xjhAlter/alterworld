@@ -31,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    console.log("test");
+    console.log("test branch");
   },
   watch: {
     $route: function (to) {
